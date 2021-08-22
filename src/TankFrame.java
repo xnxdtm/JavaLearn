@@ -1,9 +1,12 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
     private static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    private int x = 200, y = 200;
 
     public TankFrame () {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -17,6 +20,8 @@ public class TankFrame extends Frame {
                 System.exit(0);
             }
         });
+
+        addKeyListener(new MyKeyListener());
     }
 
     /**
@@ -25,7 +30,10 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {
-        g.fillRect(200, 200, 50, 50);
+        Color color = g.getColor();
+        g.setColor(Color.red);
+        g.fillRect(x, y, 50, 50);
+        g.setColor(color);
     }
 
     Image offScreenImage = null;
@@ -46,5 +54,38 @@ public class TankFrame extends Frame {
         gOffScreen.setColor(c);
         paint(gOffScreen);
         g.drawImage(offScreenImage, 0, 0, null);
+    }
+
+    private class MyKeyListener implements KeyListener {
+        @Override
+        public void keyTyped(KeyEvent keyEvent) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent keyEvent) {
+            int keyCode = keyEvent.getKeyCode();
+            switch (keyCode) {
+                case KeyEvent.VK_UP:
+                    y -= 10;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    y += 10;
+                    break;
+                case KeyEvent.VK_LEFT:
+                    x -= 10;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    x += 10;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent keyEvent) {
+
+        }
     }
 }
