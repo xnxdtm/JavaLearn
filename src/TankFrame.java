@@ -19,8 +19,13 @@ public class TankFrame extends Frame {
         });
     }
 
+    /**
+     * 使用画笔进行绘画
+     * @param g 画笔
+     */
     @Override
     public void paint(Graphics g) {
+        g.fillRect(200, 200, 50, 50);
     }
 
     Image offScreenImage = null;
