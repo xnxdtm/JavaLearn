@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public class Tank {
-    private int x = 200, y = 200;
+    private int x, y;
     private Dir dir = Dir.DOWN;
     private int SPEED;
     private boolean moving = false;

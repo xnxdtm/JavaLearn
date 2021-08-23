@@ -1,9 +1,12 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
     private static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
     private Tank tank = new Tank(200, 200, Dir.UP, 10);
+    private List<Bullet> bullets = new ArrayList<>();
 
     public TankFrame () {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -28,6 +31,10 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         tank.paint(g);
+        for (Bullet bullet :
+                bullets) {
+            bullet.paint(g);
+        }
     }
 
     Image offScreenImage = null;
@@ -80,13 +87,17 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            setMainTankDir(true);
+            setMainTankDir();
         }
 
         @Override
         public void keyReleased(KeyEvent keyEvent) {
             int keyCode = keyEvent.getKeyCode();
             switch (keyCode) {
+                case KeyEvent.VK_SPACE:
+                    Bullet bullet = new Bullet(tank.getX(), tank.getY(), tank.getDir(), 10);
+                    bullets.add(bullet);
+                    break;
                 case KeyEvent.VK_UP:
                     bU = false;
                     break;
@@ -102,11 +113,12 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            setMainTankDir(false);
+            setMainTankDir();
         }
 
-        private void setMainTankDir(boolean pressDirKey) {
-            if (pressDirKey){
+        private void setMainTankDir() {
+            if (bU || bD || bL || bR) {
+                tank.setMoving(true);
                 if (bU) {
                     tank.setDir(Dir.UP);
                 }
@@ -119,8 +131,9 @@ public class TankFrame extends Frame {
                 if (bR) {
                     tank.setDir(Dir.RIGHT);
                 }
+            } else {
+                tank.setMoving(false);
             }
-            tank.setMoving(pressDirKey);
         }
     }
 }
