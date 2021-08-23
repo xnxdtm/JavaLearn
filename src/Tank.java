@@ -4,6 +4,7 @@ public class Tank {
     private int x = 200, y = 200;
     private Dir dir = Dir.DOWN;
     private int SPEED;
+    private boolean moving = false;
 
     public Tank() {
     }
@@ -19,21 +20,23 @@ public class Tank {
         Color color = g.getColor();
         g.setColor(Color.red);
         g.fillRect(x, y, 50, 50);
-        switch (dir) {
-            case UP:
-                y -= SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            case LEFT:
-                x -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            default:
-                break;
+        if (moving) {
+            switch (dir) {
+                case UP:
+                    y -= SPEED;
+                    break;
+                case DOWN:
+                    y += SPEED;
+                    break;
+                case LEFT:
+                    x -= SPEED;
+                    break;
+                case RIGHT:
+                    x += SPEED;
+                    break;
+                default:
+                    break;
+            }
         }
         g.setColor(color);
     }
@@ -68,5 +71,13 @@ public class Tank {
 
     public void setSPEED(int SPEED) {
         this.SPEED = SPEED;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 }

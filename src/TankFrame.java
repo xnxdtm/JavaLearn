@@ -80,7 +80,7 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            setMainTankDir();
+            setMainTankDir(true);
         }
 
         @Override
@@ -102,22 +102,25 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            setMainTankDir();
+            setMainTankDir(false);
         }
 
-        private void setMainTankDir() {
-            if (bU) {
-                tank.setDir(Dir.UP);
+        private void setMainTankDir(boolean pressDirKey) {
+            if (pressDirKey){
+                if (bU) {
+                    tank.setDir(Dir.UP);
+                }
+                if (bD) {
+                    tank.setDir(Dir.DOWN);
+                }
+                if (bL) {
+                    tank.setDir(Dir.LEFT);
+                }
+                if (bR) {
+                    tank.setDir(Dir.RIGHT);
+                }
             }
-            if (bD) {
-                tank.setDir(Dir.DOWN);
-            }
-            if (bL) {
-                tank.setDir(Dir.LEFT);
-            }
-            if (bR) {
-                tank.setDir(Dir.RIGHT);
-            }
+            tank.setMoving(pressDirKey);
         }
     }
 }
