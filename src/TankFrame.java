@@ -3,9 +3,7 @@ import java.awt.event.*;
 
 public class TankFrame extends Frame {
     private static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
-    private int x = 200, y = 200;
-    private Dir dir = Dir.UP;
-    private static final int SPEED = 10;
+    private Tank tank = new Tank(200, 200, Dir.UP, 10);
 
     public TankFrame () {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -29,29 +27,7 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.red);
-        g.fillRect(x, y, 50, 50);
-        switch (dir) {
-            case UP:
-                y -= SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            case LEFT:
-                x -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            default:
-                break;
-        }
-
-
-
-        g.setColor(color);
+        tank.paint(g);
     }
 
     Image offScreenImage = null;
@@ -131,16 +107,16 @@ public class TankFrame extends Frame {
 
         private void setMainTankDir() {
             if (bU) {
-                dir = Dir.UP;
+                tank.setDir(Dir.UP);
             }
             if (bD) {
-                dir = Dir.DOWN;
+                tank.setDir(Dir.DOWN);
             }
             if (bL) {
-                dir = Dir.LEFT;
+                tank.setDir(Dir.LEFT);
             }
             if (bR) {
-                dir = Dir.RIGHT;
+                tank.setDir(Dir.RIGHT);
             }
         }
     }
