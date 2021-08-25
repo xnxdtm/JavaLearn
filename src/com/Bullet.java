@@ -9,15 +9,17 @@ public class Bullet {
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     private boolean living = true;
+    private Group group = Group.BAD;
 
     public Bullet() {
     }
 
-    public Bullet(int x, int y, Dir dir, int SPEED) {
+    public Bullet(int x, int y, Dir dir, int SPEED, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.SPEED = SPEED;
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -108,4 +110,11 @@ public class Bullet {
         this.living = living;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 }

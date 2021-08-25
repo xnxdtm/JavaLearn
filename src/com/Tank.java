@@ -1,26 +1,30 @@
 package com;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
     private int SPEED;
-    private boolean moving = false;
+    private boolean moving = true;
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
     private TankFrame tf;
     private boolean living = true;
+    private Random random = new Random();
+    private Group group = Group.BAD;
 
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir, int SPEED, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, int SPEED, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.SPEED = SPEED;
         this.tf = tf;
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -29,6 +33,9 @@ public class Tank {
     }
 
     private void drawTankImage(Graphics g) {
+        if (!living) {
+            tf.getTankList().remove(this);
+        }
         switch (dir) {
             case UP:
                 g.drawImage(ResourceMgr.tankU, x, y, null);
@@ -63,6 +70,9 @@ public class Tank {
                 default:
                     break;
             }
+            if (random.nextInt(10) > 8) {
+                fire();
+            }
         }
     }
 
@@ -70,11 +80,12 @@ public class Tank {
         Bullet bullet = new Bullet(
                 this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2,
                 this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2,
-                this.dir, 10);
+                this.dir, 15, group);
         tf.getBullets().add(bullet);
     }
 
     public void collide(Bullet bullet) {
+        if (bullet.getGroup() == group) return;
         Rectangle bulletRec = new Rectangle(bullet.getX(), bullet.getY(), Bullet.WIDTH, Bullet.HEIGHT);
         Rectangle tankRec = new Rectangle(this.x, this.y, Tank.WIDTH, Tank.HEIGHT);
         if (bulletRec.intersects(tankRec)) {
@@ -86,6 +97,7 @@ public class Tank {
     private void die() {
         this.living = false;
     }
+
     public int getX() {
         return x;
     }
@@ -132,5 +144,13 @@ public class Tank {
 
     public void setLiving(boolean living) {
         this.living = living;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
