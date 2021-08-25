@@ -8,7 +8,7 @@ public class Bullet {
     private int SPEED;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
-    private boolean live = true;
+    private boolean living = true;
 
     public Bullet() {
     }
@@ -24,7 +24,7 @@ public class Bullet {
         move();
         drawBullet(g);
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
-            this.live = false;
+            this.living = false;
         }
     }
 
@@ -64,6 +64,10 @@ public class Bullet {
         }
     }
 
+    public void die() {
+        this.living = false;
+    }
+
     public int getX() {
         return x;
     }
@@ -96,11 +100,12 @@ public class Bullet {
         this.SPEED = SPEED;
     }
 
-    public boolean isLive() {
-        return live;
+    public boolean isLiving() {
+        return living;
     }
 
-    public void setLive(boolean live) {
-        this.live = live;
+    public void setLiving(boolean living) {
+        this.living = living;
     }
+
 }

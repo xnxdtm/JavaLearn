@@ -1,10 +1,19 @@
 package com;
 
 public class T {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         TankFrame tankFrame = new TankFrame();
+        for (int i = 0; i < 5; i++) {
+            Tank tank = new Tank(200 + 80 * i, 200, Dir.DOWN, 10, tankFrame);
+            tankFrame.getTankList().add(tank);
+        }
+
         while (true) {
-            Thread.sleep(50);
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             tankFrame.repaint();
         }
     }

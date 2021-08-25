@@ -7,7 +7,8 @@ import java.util.List;
 
 public class TankFrame extends Frame {
     public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
-    private Tank tank = new Tank(200, 200, Dir.UP, 10, this);
+    private Tank tank = new Tank(200, 400, Dir.UP, 10, this);
+    private ArrayList<Tank> tankList = new ArrayList<>();
     private List<Bullet> bullets = new ArrayList<>();
 
     public TankFrame() {
@@ -36,11 +37,24 @@ public class TankFrame extends Frame {
         for (Bullet bullet : bullets) {
             bullet.paint(g);
         }
+
+        for (Tank tank :tankList) {
+            tank.paint(g);
+        }
+
+        for (Tank value : tankList) {
+            for (Bullet bullet : bullets) {
+                value.collide(bullet);
+            }
+        }
+
         tank.paint(g);
-        bullets.removeIf(bullet -> !bullet.isLive());
+        bullets.removeIf(bullet -> !bullet.isLiving());
+        tankList.removeIf(tank-> !tank.isLiving());
         Color color = g.getColor();
         g.setColor(Color.yellow);
         g.drawString("子弹数量" + bullets.size(), 20, 50);
+        g.drawString("敌方坦克" + tankList.size(), 20, 80);
         g.setColor(color);
     }
 
@@ -150,5 +164,13 @@ public class TankFrame extends Frame {
 
     public void setBullets(List<Bullet> bullets) {
         this.bullets = bullets;
+    }
+
+    public ArrayList<Tank> getTankList() {
+        return tankList;
+    }
+
+    public void setTankList(ArrayList<Tank> tankList) {
+        this.tankList = tankList;
     }
 }

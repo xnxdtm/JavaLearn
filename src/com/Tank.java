@@ -10,6 +10,7 @@ public class Tank {
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
     private TankFrame tf;
+    private boolean living = true;
 
     public Tank() {
     }
@@ -73,6 +74,18 @@ public class Tank {
         tf.getBullets().add(bullet);
     }
 
+    public void collide(Bullet bullet) {
+        Rectangle bulletRec = new Rectangle(bullet.getX(), bullet.getY(), Bullet.WIDTH, Bullet.HEIGHT);
+        Rectangle tankRec = new Rectangle(this.x, this.y, Tank.WIDTH, Tank.HEIGHT);
+        if (bulletRec.intersects(tankRec)) {
+            this.die();
+            bullet.die();
+        }
+    }
+
+    private void die() {
+        this.living = false;
+    }
     public int getX() {
         return x;
     }
@@ -111,5 +124,13 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public boolean isLiving() {
+        return living;
+    }
+
+    public void setLiving(boolean living) {
+        this.living = living;
     }
 }
