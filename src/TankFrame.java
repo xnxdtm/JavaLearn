@@ -8,7 +8,7 @@ public class TankFrame extends Frame {
     private Tank tank = new Tank(200, 200, Dir.UP, 10);
     private List<Bullet> bullets = new ArrayList<>();
 
-    public TankFrame () {
+    public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("tank war");
@@ -26,6 +26,7 @@ public class TankFrame extends Frame {
 
     /**
      * 使用画笔进行绘画
+     *
      * @param g 画笔
      */
     @Override
@@ -45,6 +46,7 @@ public class TankFrame extends Frame {
 
     /**
      * 防止页面闪动方法
+     *
      * @param g 画笔
      */
     @Override
