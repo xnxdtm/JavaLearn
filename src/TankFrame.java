@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TankFrame extends Frame {
-    private static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
     private Tank tank = new Tank(200, 200, Dir.UP, 10);
     private List<Bullet> bullets = new ArrayList<>();
 
@@ -31,10 +31,14 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         tank.paint(g);
-        for (Bullet bullet :
-                bullets) {
+        for (Bullet bullet : bullets) {
             bullet.paint(g);
         }
+        bullets.removeIf(bullet -> !bullet.isLive());
+        Color color = g.getColor();
+        g.setColor(Color.yellow);
+        g.drawString("子弹数量" + bullets.size(), 20, 50);
+        g.setColor(color);
     }
 
     Image offScreenImage = null;

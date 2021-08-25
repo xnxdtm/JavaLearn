@@ -5,6 +5,7 @@ public class Bullet {
     private Dir dir = Dir.DOWN;
     private int SPEED;
     private int WIDTH = 10, HEIGHT = 10;
+    private boolean live = true;
 
     public Bullet() {
     }
@@ -35,6 +36,9 @@ public class Bullet {
                 break;
             default:
                 break;
+        }
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+            this.live = false;
         }
         g.setColor(color);
     }
@@ -69,5 +73,13 @@ public class Bullet {
 
     public void setSPEED(int SPEED) {
         this.SPEED = SPEED;
+    }
+
+    public boolean isLive() {
+        return live;
+    }
+
+    public void setLive(boolean live) {
+        this.live = live;
     }
 }
