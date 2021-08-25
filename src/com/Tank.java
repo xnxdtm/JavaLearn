@@ -7,15 +7,19 @@ public class Tank {
     private Dir dir = Dir.DOWN;
     private int SPEED;
     private boolean moving = false;
+    public static int WIDTH = ResourceMgr.tankD.getWidth();
+    public static int HEIGHT = ResourceMgr.tankD.getHeight();
+    private TankFrame tf;
 
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir, int SPEED) {
+    public Tank(int x, int y, Dir dir, int SPEED, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.SPEED = SPEED;
+        this.tf = tf;
     }
 
     public void paint(Graphics g) {
@@ -59,6 +63,14 @@ public class Tank {
                     break;
             }
         }
+    }
+
+    public void fire() {
+        Bullet bullet = new Bullet(
+                this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2,
+                this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2,
+                this.dir, 10);
+        tf.getBullets().add(bullet);
     }
 
     public int getX() {

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TankFrame extends Frame {
     public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
-    private Tank tank = new Tank(200, 200, Dir.UP, 10);
+    private Tank tank = new Tank(200, 200, Dir.UP, 10, this);
     private List<Bullet> bullets = new ArrayList<>();
 
     public TankFrame() {
@@ -103,8 +103,7 @@ public class TankFrame extends Frame {
             int keyCode = keyEvent.getKeyCode();
             switch (keyCode) {
                 case KeyEvent.VK_SPACE:
-                    Bullet bullet = new Bullet(tank.getX() + 20, tank.getY() + 20, tank.getDir(), 10);
-                    bullets.add(bullet);
+                    tank.fire();
                     break;
                 case KeyEvent.VK_UP:
                     bU = false;
@@ -143,5 +142,13 @@ public class TankFrame extends Frame {
                 tank.setMoving(false);
             }
         }
+    }
+
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public void setBullets(List<Bullet> bullets) {
+        this.bullets = bullets;
     }
 }

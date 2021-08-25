@@ -6,7 +6,8 @@ public class Bullet {
     private int x, y;
     private Dir dir = Dir.DOWN;
     private int SPEED;
-    private int WIDTH = 10, HEIGHT = 10;
+    public static int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     private boolean live = true;
 
     public Bullet() {
@@ -20,9 +21,31 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.yellow);
-        g.fillOval(x, y, WIDTH, HEIGHT);
+        move();
+        drawBullet(g);
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+            this.live = false;
+        }
+    }
+
+    private void drawBullet(Graphics g) {
+        switch (dir) {
+            case UP:
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                break;
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
+                break;
+        }
+    }
+
+    private void move() {
         switch (dir) {
             case UP:
                 y -= SPEED;
@@ -39,10 +62,6 @@ public class Bullet {
             default:
                 break;
         }
-        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
-            this.live = false;
-        }
-        g.setColor(color);
     }
 
     public int getX() {
