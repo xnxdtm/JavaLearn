@@ -18,13 +18,14 @@ public class Tank {
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir, int SPEED, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, int SPEED, Group group, boolean moving, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.SPEED = SPEED;
         this.tf = tf;
         this.group = group;
+        this.moving = moving;
     }
 
     public void paint(Graphics g) {
@@ -70,7 +71,7 @@ public class Tank {
                 default:
                     break;
             }
-            if (random.nextInt(10) > 8) {
+            if (this.group == Group.BAD && random.nextInt(10) > 8) {
                 fire();
             }
         }
@@ -91,6 +92,8 @@ public class Tank {
         if (bulletRec.intersects(tankRec)) {
             this.die();
             bullet.die();
+            Explode explode = new Explode(bullet.getX(), bullet.getY());
+            tf.getExplodes().add(explode);
         }
     }
 
