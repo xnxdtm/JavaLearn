@@ -14,6 +14,7 @@ public class Tank {
     private boolean living = true;
     private Random random = new Random();
     private Group group = Group.BAD;
+    private Rectangle rectangle = new Rectangle();
 
     public Tank() {
     }
@@ -26,6 +27,10 @@ public class Tank {
         this.tf = tf;
         this.group = group;
         this.moving = moving;
+        this.rectangle.x = this.x;
+        this.rectangle.y = this.y;
+        this.rectangle.width = WIDTH;
+        this.rectangle.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -78,6 +83,12 @@ public class Tank {
             randomDir();
         }
         boundCheck();
+        updateRectangle();
+    }
+
+    private void updateRectangle() {
+        this.rectangle.x = this.x;
+        this.rectangle.y = this.y;
     }
 
     /**
@@ -104,8 +115,8 @@ public class Tank {
 
     public void collide(Bullet bullet) {
         if (bullet.getGroup() == group) return;
-        Rectangle bulletRec = new Rectangle(bullet.getX(), bullet.getY(), Bullet.WIDTH, Bullet.HEIGHT);
-        Rectangle tankRec = new Rectangle(this.x, this.y, Tank.WIDTH, Tank.HEIGHT);
+        Rectangle bulletRec = bullet.getRectangle();
+        Rectangle tankRec = this.rectangle;
         if (bulletRec.intersects(tankRec)) {
             this.die();
             bullet.die();
@@ -172,5 +183,13 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
     }
 }

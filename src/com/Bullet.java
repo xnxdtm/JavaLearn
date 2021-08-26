@@ -10,6 +10,7 @@ public class Bullet {
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     private boolean living = true;
     private Group group = Group.BAD;
+    private Rectangle rectangle = new Rectangle();
 
     public Bullet() {
     }
@@ -20,6 +21,10 @@ public class Bullet {
         this.dir = dir;
         this.SPEED = SPEED;
         this.group = group;
+        this.rectangle.x = this.x;
+        this.rectangle.y = this.y;
+        this.rectangle.width = WIDTH;
+        this.rectangle.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -64,6 +69,12 @@ public class Bullet {
             default:
                 break;
         }
+        updateRectangle();
+    }
+
+    private void updateRectangle() {
+        this.rectangle.x = this.x;
+        this.rectangle.y = this.y;
     }
 
     public void die() {
@@ -116,5 +127,13 @@ public class Bullet {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
     }
 }
