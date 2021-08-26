@@ -54,30 +54,40 @@ public class Tank {
     }
 
     private void move() {
-        if (moving) {
-            switch (dir) {
-                case UP:
-                    y -= SPEED;
-                    break;
-                case DOWN:
-                    y += SPEED;
-                    break;
-                case LEFT:
-                    x -= SPEED;
-                    break;
-                case RIGHT:
-                    x += SPEED;
-                    break;
-                default:
-                    break;
-            }
-            if (this.group == Group.BAD && random.nextInt(100) > 95) {
-                fire();
-            }
-            if (this.group == Group.BAD && random.nextInt(100) > 95) {
-                randomDir();
-            }
+        if (!moving) return;
+        switch (dir) {
+            case UP:
+                y -= SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+            case LEFT:
+                x -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            default:
+                break;
         }
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
+            fire();
+        }
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
+            randomDir();
+        }
+        boundCheck();
+    }
+
+    /**
+     * 碰撞检测
+     */
+    private void boundCheck() {
+        if (this.x < 0) x = 0;
+        if (this.y < 30) y = 30;
+        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH) x = TankFrame.GAME_WIDTH - Tank.WIDTH;
+        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT;
     }
 
     private void randomDir() {
