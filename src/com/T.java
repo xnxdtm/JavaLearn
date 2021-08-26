@@ -1,9 +1,12 @@
 package com;
 
+import java.util.Objects;
+
 public class T {
     public static void main(String[] args) {
         TankFrame tankFrame = new TankFrame();
-        for (int i = 0; i < 5; i++) {
+        int initTankCount = Integer.parseInt((String) Objects.requireNonNull(PropertyMgr.get("initCount")));
+        for (int i = 0; i < initTankCount; i++) {
             Tank tank = new Tank(200 + 80 * i, 200, Dir.DOWN, 1, Group.BAD, true, tankFrame);
             tankFrame.getTankList().add(tank);
         }
