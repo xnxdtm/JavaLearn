@@ -8,6 +8,8 @@ public class T {
             tankFrame.getTankList().add(tank);
         }
 
+        new Thread(() -> new Audio("audio/war1.wav").loop()).start();
+
         while (true) {
             try {
                 Thread.sleep(50);
