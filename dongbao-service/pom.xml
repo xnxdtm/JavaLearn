@@ -24,6 +24,15 @@
         <module>dongbao-cms</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.dongbao</groupId>
+            <artifactId>dongbao-ums-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
