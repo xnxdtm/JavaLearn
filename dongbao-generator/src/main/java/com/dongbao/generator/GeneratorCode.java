@@ -48,7 +48,7 @@ public class GeneratorCode {
         // 包设置
         PackageConfig pc = new PackageConfig();
 
-        pc.setParent("com.dongbao.ums");
+        pc.setParent("com.dongbao.com.dongbao.ums");
         pc.setEntity("entity");
         pc.setService("service");
         pc.setServiceImpl("service.impl");
