@@ -14,7 +14,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
-        <module>dongbao-com.dongbao.ums</module>
+        <module>dongbao-ums</module>
     </modules>
 
     <properties>
