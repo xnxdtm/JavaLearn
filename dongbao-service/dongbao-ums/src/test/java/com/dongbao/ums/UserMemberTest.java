@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(classes = com.dongbao.ums.DongbaoUmsApplication.class)
 public class UserMemberTest {
 
-    private static final String MEMBER_NAME = "张三23";
+    private static final String MEMBER_NAME = "张三24";
 
     @Autowired
     UmsMemberMapper umsMemberMapper;
