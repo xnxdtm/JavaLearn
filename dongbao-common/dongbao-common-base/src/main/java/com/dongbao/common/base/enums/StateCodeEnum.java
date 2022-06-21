@@ -3,6 +3,7 @@ package com.dongbao.common.base.enums;
 public enum StateCodeEnum {
     SUCCESS(200, "成功"),
     FAIL(500, "失败"),
+    PARAMS_ERROR(102, "参数校验未通过"),
 
     // ================== ums ==================
     USER_NO_EXIST(51001, "用户不存在"),
