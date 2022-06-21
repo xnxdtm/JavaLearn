@@ -1,6 +1,6 @@
 package com.dongbao.ums.service;
 
-import com.dongbao.ums.entity.UmsMember;
+import com.dongbao.ums.entity.dto.UmsMemberLoginParamDTO;
 import com.dongbao.ums.entity.dto.UmsMemberRegisterParamDTO;
 
 /**
@@ -12,6 +12,10 @@ import com.dongbao.ums.entity.dto.UmsMemberRegisterParamDTO;
  * @since 2022-06-19
  */
 public interface UmsMemberService {
+
     void hello();
+
     String register(UmsMemberRegisterParamDTO umsMemberRegisterParamDTO);
+
+    String login(UmsMemberLoginParamDTO umsMemberLoginParamDTO);
 }
