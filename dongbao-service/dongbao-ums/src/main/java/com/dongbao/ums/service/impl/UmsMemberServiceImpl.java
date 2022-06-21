@@ -1,6 +1,7 @@
 package com.dongbao.ums.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dongbao.common.base.JwtUtil;
 import com.dongbao.common.base.enums.StateCodeEnum;
 import com.dongbao.common.base.result.ResultWrapper;
 import com.dongbao.ums.entity.UmsMember;
@@ -61,6 +62,7 @@ public class UmsMemberServiceImpl implements UmsMemberService {
             return ResultWrapper.getFailBuilder().code(StateCodeEnum.USER_PASS_ERROR.getCode())
                     .msg(StateCodeEnum.USER_PASS_ERROR.getMsg()).build();
         }
-        return ResultWrapper.getSuccessBuilder().build();
+        String token = JwtUtil.createToken(dbUmsMember.getUsername());
+        return ResultWrapper.getSuccessBuilder().data(token).build();
     }
 }
