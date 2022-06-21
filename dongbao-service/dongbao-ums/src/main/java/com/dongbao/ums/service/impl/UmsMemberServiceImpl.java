@@ -6,9 +6,8 @@ import com.dongbao.ums.mapper.UmsMemberMapper;
 import com.dongbao.ums.service.UmsMemberService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.function.DoubleToIntFunction;
 
 /**
  * <p>
@@ -33,6 +32,9 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     public String register(UmsMemberRegisterParamDTO umsMemberRegisterParamDTO) {
         UmsMember umsMember = new UmsMember();
         BeanUtils.copyProperties(umsMemberRegisterParamDTO, umsMember);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String passwordEncode = bCryptPasswordEncoder.encode(umsMember.getPassword());
+        umsMember.setPassword(passwordEncode);
         umsMemberMapper.insert(umsMember);
         return "success";
     }
