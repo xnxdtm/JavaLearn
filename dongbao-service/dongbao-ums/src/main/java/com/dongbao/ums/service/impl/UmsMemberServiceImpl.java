@@ -5,6 +5,7 @@ import com.dongbao.common.base.JwtUtil;
 import com.dongbao.common.base.enums.StateCodeEnum;
 import com.dongbao.common.base.result.ResultWrapper;
 import com.dongbao.ums.entity.UmsMember;
+import com.dongbao.ums.entity.dto.UmsMemberEditParamDTO;
 import com.dongbao.ums.entity.dto.UmsMemberLoginParamDTO;
 import com.dongbao.ums.entity.dto.UmsMemberRegisterParamDTO;
 import com.dongbao.ums.mapper.UmsMemberMapper;
@@ -64,5 +65,16 @@ public class UmsMemberServiceImpl implements UmsMemberService {
         }
         String token = JwtUtil.createToken(dbUmsMember.getUsername());
         return ResultWrapper.getSuccessBuilder().data(token).build();
+    }
+
+    @Override
+    public ResultWrapper<Object> editMember(UmsMemberEditParamDTO umsMemberEditParamDTO) {
+        UmsMember umsMember = new UmsMember();
+        BeanUtils.copyProperties(umsMemberEditParamDTO, umsMember);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String passwordEncode = bCryptPasswordEncoder.encode(umsMember.getPassword());
+        umsMember.setPassword(passwordEncode);
+        umsMemberMapper.updateById(umsMember);
+        return ResultWrapper.getSuccessBuilder().build();
     }
 }

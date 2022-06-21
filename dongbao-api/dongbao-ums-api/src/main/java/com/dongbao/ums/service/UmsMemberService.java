@@ -1,6 +1,7 @@
 package com.dongbao.ums.service;
 
 import com.dongbao.common.base.result.ResultWrapper;
+import com.dongbao.ums.entity.dto.UmsMemberEditParamDTO;
 import com.dongbao.ums.entity.dto.UmsMemberLoginParamDTO;
 import com.dongbao.ums.entity.dto.UmsMemberRegisterParamDTO;
 
@@ -19,4 +20,6 @@ public interface UmsMemberService {
     ResultWrapper<Object> register(UmsMemberRegisterParamDTO umsMemberRegisterParamDTO);
 
     ResultWrapper<Object> login(UmsMemberLoginParamDTO umsMemberLoginParamDTO);
+
+    ResultWrapper<Object> editMember(UmsMemberEditParamDTO umsMemberEditParamDTO);
 }

@@ -2,6 +2,7 @@ package com.dongbao.portal.web.controller;
 
 import com.dongbao.common.base.JwtUtil;
 import com.dongbao.common.base.result.ResultWrapper;
+import com.dongbao.ums.entity.dto.UmsMemberEditParamDTO;
 import com.dongbao.ums.entity.dto.UmsMemberLoginParamDTO;
 import com.dongbao.ums.entity.dto.UmsMemberRegisterParamDTO;
 import com.dongbao.ums.service.UmsMemberService;
@@ -35,6 +36,11 @@ public class UmsMemberController {
     @PostMapping("login")
     public ResultWrapper<Object> login(@RequestBody UmsMemberLoginParamDTO umsMemberLoginParamDTO) {
         return umsMemberService.login(umsMemberLoginParamDTO);
+    }
+
+    @PostMapping("edit")
+    public ResultWrapper<Object> edit(@RequestBody UmsMemberEditParamDTO umsMemberEditParamDTO) {
+        return umsMemberService.editMember(umsMemberEditParamDTO);
     }
 
     @PostMapping("verifyToken")
