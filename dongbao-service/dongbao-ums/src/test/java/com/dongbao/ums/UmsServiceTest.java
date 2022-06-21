@@ -16,9 +16,4 @@ public class UmsServiceTest {
         umsMemberService.hello();
     }
 
-    @Test
-    void testRegister() {
-        umsMemberService.register();
-    }
-
 }

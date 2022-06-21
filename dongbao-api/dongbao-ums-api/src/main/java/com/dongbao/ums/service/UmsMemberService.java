@@ -1,5 +1,8 @@
 package com.dongbao.ums.service;
 
+import com.dongbao.ums.entity.UmsMember;
+import com.dongbao.ums.entity.dto.UmsMemberRegisterParamDTO;
+
 /**
  * <p>
  * 后台用户表 服务类
@@ -10,5 +13,5 @@ package com.dongbao.ums.service;
  */
 public interface UmsMemberService {
     void hello();
-    String register();
+    String register(UmsMemberRegisterParamDTO umsMemberRegisterParamDTO);
 }

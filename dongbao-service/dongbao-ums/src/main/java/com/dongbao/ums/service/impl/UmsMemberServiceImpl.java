@@ -1,10 +1,14 @@
 package com.dongbao.ums.service.impl;
 
 import com.dongbao.ums.entity.UmsMember;
+import com.dongbao.ums.entity.dto.UmsMemberRegisterParamDTO;
 import com.dongbao.ums.mapper.UmsMemberMapper;
 import com.dongbao.ums.service.UmsMemberService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.function.DoubleToIntFunction;
 
 /**
  * <p>
@@ -26,9 +30,9 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     }
 
     @Override
-    public String register() {
+    public String register(UmsMemberRegisterParamDTO umsMemberRegisterParamDTO) {
         UmsMember umsMember = new UmsMember();
-        umsMember.setNickName("张三");
+        BeanUtils.copyProperties(umsMemberRegisterParamDTO, umsMember);
         umsMemberMapper.insert(umsMember);
         return "success";
     }

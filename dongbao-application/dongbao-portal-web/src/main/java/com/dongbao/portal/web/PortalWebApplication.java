@@ -6,11 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {"com.dongbao"})
-@MapperScan("com.dongbao.ums.mapper.xml")
+@MapperScan("com.dongbao.ums.mapper")
 public class PortalWebApplication{
-
     public static void main(String[] args) {
         SpringApplication.run(PortalWebApplication.class, args);
     }
-
 }
