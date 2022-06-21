@@ -1,6 +1,8 @@
 package com.dongbao.ums.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dongbao.common.base.enums.StateCodeEnum;
+import com.dongbao.common.base.result.ResultWrapper;
 import com.dongbao.ums.entity.UmsMember;
 import com.dongbao.ums.entity.dto.UmsMemberLoginParamDTO;
 import com.dongbao.ums.entity.dto.UmsMemberRegisterParamDTO;
@@ -35,28 +37,30 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     }
 
     @Override
-    public String register(UmsMemberRegisterParamDTO umsMemberRegisterParamDTO) {
+    public ResultWrapper<Object> register(UmsMemberRegisterParamDTO umsMemberRegisterParamDTO) {
         UmsMember umsMember = new UmsMember();
         BeanUtils.copyProperties(umsMemberRegisterParamDTO, umsMember);
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String passwordEncode = bCryptPasswordEncoder.encode(umsMember.getPassword());
         umsMember.setPassword(passwordEncode);
         umsMemberMapper.insert(umsMember);
-        return "success";
+        return ResultWrapper.getSuccessBuilder().build();
     }
 
     @Override
-    public String login(UmsMemberLoginParamDTO umsMemberLoginParamDTO) {
+    public ResultWrapper<Object> login(UmsMemberLoginParamDTO umsMemberLoginParamDTO) {
         UmsMember umsMember = new UmsMember();
         umsMember.setUsername(umsMemberLoginParamDTO.getUsername());
         QueryWrapper<UmsMember> wrapper = new QueryWrapper<>(umsMember);
         UmsMember dbUmsMember = umsMemberMapper.selectOne(wrapper);
         if (null == dbUmsMember) {
-            return "用户不存在";
+            return ResultWrapper.getFailBuilder().code(StateCodeEnum.USER_NO_EXIST.getCode())
+                    .msg(StateCodeEnum.USER_NO_EXIST.getMsg()).build();
         }
         if (!passwordEncoder.matches(umsMemberLoginParamDTO.getPassword(), dbUmsMember.getPassword())) {
-            return "用户密码错误";
+            return ResultWrapper.getFailBuilder().code(StateCodeEnum.USER_PASS_ERROR.getCode())
+                    .msg(StateCodeEnum.USER_PASS_ERROR.getMsg()).build();
         }
-        return "登录成功";
+        return ResultWrapper.getSuccessBuilder().build();
     }
 }
