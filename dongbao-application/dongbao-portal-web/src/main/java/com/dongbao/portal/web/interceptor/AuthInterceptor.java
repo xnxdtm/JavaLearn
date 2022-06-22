@@ -22,24 +22,24 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
-        String token = request.getHeader("token");
-        if (StringUtils.isBlank(token)) throw new TokenException("token为空");
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
+        // 如果方法上添加 @TokenCheck(required = false) 则不校验token
         if (method.isAnnotationPresent(TokenCheck.class)) {
             TokenCheck tokenCheck = method.getAnnotation(TokenCheck.class);
-            if (tokenCheck.required()) {
-                // 校验token
-                try {
-                    JwtUtil.parseToken(token);
-                    return true;
-                } catch (Exception e) {
-                    throw new TokenException("token异常");
-                }
-
+            if (!tokenCheck.required()) {
+                return true;
             }
         }
-        return false;
+        // 校验 token
+        String token = request.getHeader("token");
+        if (StringUtils.isBlank(token)) throw new TokenException("token为空");
+        try {
+            JwtUtil.parseToken(token);
+            return true;
+        } catch (Exception e) {
+            throw new TokenException("token异常");
+        }
     }
 
     @Override

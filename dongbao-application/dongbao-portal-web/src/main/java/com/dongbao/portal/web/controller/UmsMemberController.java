@@ -25,27 +25,30 @@ public class UmsMemberController {
     UmsMemberService umsMemberService;
 
     @GetMapping("hello")
+    @TokenCheck(required = false)
     public String hello() {
         return "hello";
     }
 
     @PostMapping("register")
+    @TokenCheck(required = false)
     public ResultWrapper<Object> register(@RequestBody @Valid UmsMemberRegisterParamDTO umsMemberRegisterParamDTO) {
         return umsMemberService.register(umsMemberRegisterParamDTO);
     }
 
     @PostMapping("login")
+    @TokenCheck(required = false)
     public ResultWrapper<Object> login(@RequestBody UmsMemberLoginParamDTO umsMemberLoginParamDTO) {
         return umsMemberService.login(umsMemberLoginParamDTO);
     }
 
     @PostMapping("edit")
-    @TokenCheck
     public ResultWrapper<Object> edit(@RequestBody UmsMemberEditParamDTO umsMemberEditParamDTO) {
         return umsMemberService.editMember(umsMemberEditParamDTO);
     }
 
-    @PostMapping("verifyToken")
+    @GetMapping("verifyToken")
+    @TokenCheck(required = false)
     public ResultWrapper<Object> verifyToken(@RequestParam String token) {
         String username = JwtUtil.parseToken(token);
         return ResultWrapper.getSuccessBuilder().data(username).build();
