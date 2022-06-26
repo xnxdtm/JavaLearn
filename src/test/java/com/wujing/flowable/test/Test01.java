@@ -5,6 +5,7 @@ import org.flowable.engine.ProcessEngineConfiguration;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.flowable.engine.repository.Deployment;
+import org.flowable.engine.repository.ProcessDefinition;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -63,6 +64,38 @@ public class Test01 {
         System.out.println(deploy.getId());
         System.out.println(deploy.getName());
     }
+
+    /**
+     * 查询流程
+     */
+    @Test
+    public void testQueryDeploy() {
+        ProcessEngine processEngine = configuration.buildProcessEngine();
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+                .deploymentId("1")  // act_re_deployment 表 id
+                .singleResult();
+        System.out.println(processDefinition.getDeploymentId());
+        System.out.println(processDefinition.getName());
+        System.out.println(processDefinition.getDescription());
+        System.out.println(processDefinition.getId());
+    }
+
+    /**
+     * 删除流程
+     * 删除部署的流程: repositoryService.deleteDeployment:
+     * 第一个参数是 ID, 如果部署的流程启动了, 则不能再删除
+     * 第二个参数是级联删除, 如果流程启动了也会删除,相关的任务也会一并删除掉
+     */
+    @Test
+    public void testDeleteDeploy() {
+        ProcessEngine processEngine = configuration.buildProcessEngine();
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.deleteDeployment("1", true);
+    }
+
+
+
 
 
 
