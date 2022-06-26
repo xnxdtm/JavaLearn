@@ -1,17 +1,16 @@
 package com.wujing.flowable.test;
 
-import org.flowable.engine.ProcessEngine;
-import org.flowable.engine.ProcessEngineConfiguration;
-import org.flowable.engine.RepositoryService;
-import org.flowable.engine.RuntimeService;
+import org.flowable.engine.*;
 import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.ProcessInstance;
+import org.flowable.task.api.Task;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author zhangjq
@@ -117,6 +116,24 @@ public class Test01 {
         System.out.println(holidayRequest.getId());
     }
 
+    /**
+     * 测试任务查询
+     */
+    @Test
+    public void testQueryTask() {
+        ProcessEngine processEngine = configuration.buildProcessEngine();
+        TaskService taskService = processEngine.getTaskService();
+        List<Task> list = taskService.createTaskQuery()
+                .processDefinitionKey("holidayRequest")
+                .taskAssignee("zhangsan")
+                .list();
+        list.forEach(task -> {
+            System.out.println(task.getProcessDefinitionId());
+            System.out.println(task.getDescription());
+            System.out.println(task.getName());
+            System.out.println(task.getDelegationState());
+        });
+    }
 
 
 
