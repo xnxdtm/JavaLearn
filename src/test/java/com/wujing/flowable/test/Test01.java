@@ -3,11 +3,15 @@ package com.wujing.flowable.test;
 import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.ProcessEngineConfiguration;
 import org.flowable.engine.RepositoryService;
+import org.flowable.engine.RuntimeService;
 import org.flowable.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
+import org.flowable.engine.runtime.ProcessInstance;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
 
 /**
  * @author zhangjq
@@ -94,7 +98,24 @@ public class Test01 {
         repositoryService.deleteDeployment("1", true);
     }
 
-
+    /**
+     * 启动流程
+     */
+    @Test
+    public void testRunProcess() {
+        ProcessEngine processEngine = configuration.buildProcessEngine();
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+        // 构建流程变量
+        HashMap<String, Object> variable = new HashMap<>();
+        variable.put("employee", "张三");
+        variable.put("number", 3);
+        variable.put("description", "休假");
+        // 启动流程实例
+        ProcessInstance holidayRequest = runtimeService.startProcessInstanceByKey("holidayRequest", variable);
+        System.out.println(holidayRequest.getProcessDefinitionId());
+        System.out.println(holidayRequest.getActivityId());
+        System.out.println(holidayRequest.getId());
+    }
 
 
 
