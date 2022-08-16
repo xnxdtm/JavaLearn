@@ -24,4 +24,10 @@ public class MyTest {
         System.out.println("myQueue发送内容");
     }
 
+    @Test
+    public void test2(){
+        amqpTemplate.convertAndSend("amq.fanout","asdfadsf","fanout msg");
+        System.out.println("fanout发送成功");
+    }
+
 }
