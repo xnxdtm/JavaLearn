@@ -30,4 +30,15 @@ public class MyTest {
         System.out.println("fanout发送成功");
     }
 
+    @Test
+    public void test3(){
+        amqpTemplate.convertAndSend("amq.topic","com.bjsxt.a.b","topic msg");
+        System.out.println("发送成功");
+    }
+    @Test
+    public void test4(){
+        amqpTemplate.convertAndSend("amq.topic","com.a.b","topic a msg");
+        System.out.println("发送成功");
+    }
+
 }

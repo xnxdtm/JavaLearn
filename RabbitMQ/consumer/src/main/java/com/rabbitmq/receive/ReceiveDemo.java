@@ -24,4 +24,14 @@ public class ReceiveDemo {
     public void fanout2(String msg) {
         System.out.println("fanout2： " + msg);
     }
+
+    @RabbitListener(queues = "topic2")
+    public void demo09(String msg){
+        System.out.println("topic2-1:"+msg);
+    }
+
+    @RabbitListener(queues = "topic2")
+    public void demo10(String msg){
+        System.out.println("topic2-2:"+msg);
+    }
 }
