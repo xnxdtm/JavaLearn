@@ -6,7 +6,7 @@ import static com.Tool.*;
  * 题目: 插入排序
  * 思路: 假设前n个数有序, 则下一个循环保证前n+1个数有序
  */
-public class S06 {
+public class S07 {
     public static void main(String[] args) {
         int times = 1000;
         boolean flag = true;
@@ -30,6 +30,7 @@ public class S06 {
         for (int i = 1; i < N; i++) {
             for (int j = i - 1; j >= 0; j--) {
                 if (arr[j + 1] < arr[j]) swapArr(arr, j + 1, j);
+                else break;
             }
         }
     }

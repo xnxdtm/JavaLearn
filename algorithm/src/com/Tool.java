@@ -23,11 +23,11 @@ public final class Tool {
         System.out.println();
     }
 
-    public static int[] randomArr(int length, int maxValue) {
-        Random random = new Random();
+    public static int[] randomArr(int maxLength, int maxValue) {
+        int length = (int) (Math.random() * maxLength);
         int[] res = new int[length];
-        for (int i = 0; i < length; i++) {
-            res[i] = random.nextInt(maxValue);
+        for (int i = 0; i < maxLength; i++) {
+            res[i] = (int) (Math.random() * maxValue);
         }
         return res;
     }
