@@ -6,17 +6,10 @@ package com.start;
  */
 public class Demo {
     public static void main(String[] args) {
-        myInitCode();
-        standardCode();
+        f();
     }
 
-    public static void standardCode() {
-        System.out.println("**************** my ****************");
+    public static void f() {
     }
-
-    public static void myInitCode() {
-        System.out.println("**************** good ****************");
-    }
-
 
 }

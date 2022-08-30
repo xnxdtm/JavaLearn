@@ -26,7 +26,7 @@ public final class Tool {
     public static int[] randomArr(int maxLength, int maxValue) {
         int length = (int) (Math.random() * maxLength);
         int[] res = new int[length];
-        for (int i = 0; i < maxLength; i++) {
+        for (int i = 0; i < length; i++) {
             res[i] = (int) (Math.random() * maxValue);
         }
         return res;

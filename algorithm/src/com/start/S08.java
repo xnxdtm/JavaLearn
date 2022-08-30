@@ -37,8 +37,7 @@ public class S08 {
     }
 
     /**
-     *
-     * @return 返回一个[0,1)的小数, 小数落在[0,x) x属于(0,1)的概率为 x^2
+     * @return 返回一个[0,1)的小数, 小数落在[0,x)的概率为 x^2   x属于(0,1)
      */
     public static double xToPow2() {
         return Math.max(Math.random(), Math.random());
