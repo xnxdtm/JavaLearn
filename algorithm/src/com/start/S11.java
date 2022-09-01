@@ -1,40 +1,60 @@
 package com.start;
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 import static com.Tool.*;
 
 /**
- * 题目: 有序数组中找到num
+ * 题目: 有序数组中寻找是否存在指定值num
  * 思路:
  */
 public class S11 {
     public static void main(String[] args) {
         int times = 10000;
+        int[] arr1 = {16};
+        int num1 = 7;
+        f(arr1, num1);
         for (int i = 0; i < times; i++) {
             int[] arr = randomArr(30, 20);
-            printArr(arr);
+            sortArr(arr);
+            int num = (int)(Math.random() * 20);
+            // 一个一个对比是否存在
+            boolean exist1 = false;
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[j] == num) {
+                    exist1 = true;
+                    break;
+                }
+            }
+            // 二分法对比是否存在
+            boolean exist2 = f(arr, num);
+            if (exist2 != exist1) {
+                System.out.print("");
+                printArr(arr);
+                System.out.println("num: " + num);
+                System.out.println("index1: " + exist1);
+                System.out.println("index2: " + exist2);
+            }
         }
     }
 
-    public static int f(int[] arr, int num) {
+    public static boolean f(int[] arr, int num) {
         int N = arr.length;
-        int l = 0;
-        int r = N - 1;
-        
-        int m = (r - l) / 2;  // 3,4 => 3  3.5  4,5 => 4   3,5 => 4  3,3 => 3
-        if (num > arr[m]) {
-            l = m;
-        } else if (num == arr[m]) {
-            return m;
-        } else {
-            r = m;
+        int L = 0;
+        int R = N - 1;
+        if (N == 0) return false;
+        while (R >= L) {
+            int mid = (R + L) >> 1;  // 3,4 => 3  4,5 => 4   3,5 => 4  3,3 => 3
+            if (num > arr[mid]) {
+                L = mid + 1;
+            } else if (num == arr[mid]) {
+                return true;
+            } else {
+                R = mid - 1;
+            }
         }
-        if (r - l == 1 && arr[r] == num) {
-            return r;
-        } else {
-            return -1;
-        }
-        
-        
+        return false;
     }
 
 }
